@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/add_user_screen/bindings/add_user_screen_binding.dart';
+import '../modules/add_user_screen/views/add_user_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login_page/bindings/login_page_binding.dart';
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.LOGIN_PAGE,
       page: () => const LoginPageView(),
       binding: LoginPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_USER_SCREEN,
+      page: () => const AddUserScreenView(),
+      binding: AddUserScreenBinding(),
     ),
   ];
 }

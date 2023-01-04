@@ -9,6 +9,8 @@ class LoginPageController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   void onInit() {
+    EmailController.value.text = "thummar0211@gmail.com";
+    PassController.value.text = "Test@123";
     super.onInit();
   }
 

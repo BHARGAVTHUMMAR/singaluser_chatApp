@@ -14,7 +14,7 @@ class FirebaseService {
     return await FirebaseFirestore.instance
         .collection("users")
         .doc(userModels.uid)
-        .set(userModels.toMap());
+        .set(userModels.toJson());
   }
 
   Future<User?> SingUpUser(
@@ -63,6 +63,29 @@ class FirebaseService {
   Future<UserModels?> getUserData(
       {required String uid, required BuildContext context}) async {
     var data = await firebaseFireStore.collection("users").doc(uid).get();
-    return UserModels.fromMap(data.data()!);
+    return UserModels.fromJson(data.data()!);
+  }
+
+  Future<void> addFriend(
+      {required BuildContext context,
+      required String friendsUid,
+      required List<dynamic> friendsFriendsList,
+      required List<dynamic> myFriendList}) async {
+    await firebaseFireStore
+        .collection("users")
+        .doc(friendsUid)
+        .update({"FriendsList": friendsFriendsList});
+    await firebaseFireStore
+        .collection("users")
+        .doc(box.read(ArgumentConstant.userUid))
+        .update({"FriendsList": myFriendList});
+  }
+
+  Future<void> logOut({required BuildContext context}) async {
+    return await firebaseAuth.signOut();
+  }
+
+  Stream<QuerySnapshot> getAllUsersList() {
+    return firebaseFireStore.collection("users").orderBy("Name").snapshots();
   }
 }

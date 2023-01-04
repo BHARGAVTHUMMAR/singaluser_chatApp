@@ -112,6 +112,7 @@ class SingupPageView extends GetWidget<SingupPageController> {
                             .SingUpUser(
                                 context: context,
                                 userModels: UserModels(
+                                    FriendsList: [],
                                     Name: controller.NameController.value.text
                                         .trim(),
                                     Password: controller

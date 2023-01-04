@@ -79,6 +79,7 @@ class LoginPageView extends GetView<LoginPageController> {
                           .loginUser(
                               context: context,
                               userModels: UserModels(
+                                  FriendsList: [],
                                   Name: "",
                                   Email: controller.EmailController.value.text,
                                   Password:

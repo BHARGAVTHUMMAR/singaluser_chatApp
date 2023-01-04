@@ -3,20 +3,30 @@ class UserModels {
   String? Name;
   String? Email;
   String? Password;
-  UserModels({this.uid, this.Name, this.Email, this.Password});
+  List<dynamic>? FriendsList = [];
 
-  UserModels.fromMap(Map<String, dynamic> map) {
-    uid = map["uid"];
-    Name = map["Name"];
-    Email = map["Email"];
-    Password = map["Password"];
+  UserModels(
+      {required this.uid,
+      required this.Name,
+      required this.Email,
+      required this.Password,
+      required this.FriendsList});
+
+  UserModels.fromJson(Map<String, dynamic> json) {
+    uid = json['uid'];
+    Name = json['Name'];
+    Email = json['Email'];
+    Password = json['Password'];
+    FriendsList = json["FriendsList"];
   }
-  Map<String, dynamic> toMap() {
-    return {
-      "uid": uid,
-      "Name": Name,
-      "Email": Email,
-      "Password": Password,
-    };
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uid'] = this.uid;
+    data['Name'] = this.Name;
+    data['Email'] = this.Email;
+    data['Password'] = this.Password;
+    data['FriendsList'] = this.FriendsList;
+    return data;
   }
 }
