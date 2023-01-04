@@ -88,4 +88,32 @@ class FirebaseService {
   Stream<QuerySnapshot> getAllUsersList() {
     return firebaseFireStore.collection("users").orderBy("Name").snapshots();
   }
+
+  Future<bool> addMessageToChat(
+      {required String chatId, required Map<String, dynamic> chatData}) async {
+    // print('sendMessage chatmessage: $message $chatRoomId');
+
+    await firebaseFireStore
+        .collection("chat")
+        .doc(chatId)
+        .collection("chats")
+        .add(chatData);
+    return true;
+  }
+
+  Future<void> updateFcmToken({required String fcmToken}) async {
+    await firebaseFireStore
+        .collection("users")
+        .doc(box.read(ArgumentConstant.userUid))
+        .update({"FcmToken": fcmToken});
+  }
+
+  Stream<QuerySnapshot> getChatData({required String chatId}) {
+    return firebaseFireStore
+        .collection("chat")
+        .doc(chatId)
+        .collection("chats")
+        .orderBy("dateTime", descending: true)
+        .snapshots();
+  }
 }

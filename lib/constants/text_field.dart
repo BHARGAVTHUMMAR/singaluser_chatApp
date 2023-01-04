@@ -27,6 +27,7 @@ TextFormField getTextField({
   String errorText = "",
   FocusNode? focusNode,
   Function(String)? onChange,
+  Function(String)? onSubmit,
   FormFieldValidator<String>? validation,
   double fontSize = 15,
   double hintFontSize = 14,
@@ -47,6 +48,7 @@ TextFormField getTextField({
     maxLines: maxLine,
     minLines: minLine,
     onChanged: onChange,
+    onFieldSubmitted: onSubmit,
     decoration: InputDecoration(
       fillColor: fillColor ?? appTheme.textGrayColor,
       filled: isFilled,
@@ -85,7 +87,6 @@ TextFormField getTextField({
       errorMaxLines: 2,
       errorText: (isNullEmptyOrFalse(errorText)) ? null : errorText,
       hintText: hintText,
-
     ),
   );
 }

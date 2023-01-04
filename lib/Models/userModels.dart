@@ -3,6 +3,7 @@ class UserModels {
   String? Name;
   String? Email;
   String? Password;
+  String? fcmToken;
   List<dynamic>? FriendsList = [];
 
   UserModels(
@@ -18,6 +19,7 @@ class UserModels {
     Email = json['Email'];
     Password = json['Password'];
     FriendsList = json["FriendsList"];
+    fcmToken = json["FcmToken"];
   }
 
   Map<String, dynamic> toJson() {

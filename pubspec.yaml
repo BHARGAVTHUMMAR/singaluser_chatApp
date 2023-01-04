@@ -9,6 +9,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: 4.6.5
   firebase_auth:
+  intl:
+  firebase_messaging:
+  flutter_local_notifications:
+  http:
   firebase_core:
   cloud_firestore:
   get_storage:

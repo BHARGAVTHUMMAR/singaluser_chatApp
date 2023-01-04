@@ -1,7 +1,12 @@
 import 'package:get/get.dart';
 
+import '../../constants/api_constants.dart';
+import '../../constants/sizeConstant.dart';
+import '../../main.dart';
 import '../modules/add_user_screen/bindings/add_user_screen_binding.dart';
 import '../modules/add_user_screen/views/add_user_screen_view.dart';
+import '../modules/chat_screen/bindings/chat_screen_binding.dart';
+import '../modules/chat_screen/views/chat_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login_page/bindings/login_page_binding.dart';
@@ -14,7 +19,10 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN_PAGE;
+  static String INITIAL =
+      (!isNullEmptyOrFalse(box.read(ArgumentConstant.isLogin)))
+          ? Routes.HOME
+          : Routes.LOGIN_PAGE;
 
   static final routes = [
     GetPage(
@@ -36,6 +44,11 @@ class AppPages {
       name: _Paths.ADD_USER_SCREEN,
       page: () => const AddUserScreenView(),
       binding: AddUserScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHAT_SCREEN,
+      page: () => const ChatScreenView(),
+      binding: ChatScreenBinding(),
     ),
   ];
 }

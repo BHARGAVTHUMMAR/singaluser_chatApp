@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import 'package:singal_chat_app/Models/userModels.dart';
 import 'package:singal_chat_app/app/modules/login_page/controllers/login_page_controller.dart';
 import 'package:singal_chat_app/app/routes/app_pages.dart';
+import 'package:singal_chat_app/constants/api_constants.dart';
 import 'package:singal_chat_app/constants/color_constant.dart';
 import 'package:singal_chat_app/constants/sizeConstant.dart';
 import 'package:singal_chat_app/constants/text_field.dart';
 import 'package:singal_chat_app/service/Firebase_service.dart';
+
+import '../../../../main.dart';
 
 class LoginPageView extends GetView<LoginPageController> {
   const LoginPageView({Key? key}) : super(key: key);
@@ -79,15 +82,16 @@ class LoginPageView extends GetView<LoginPageController> {
                           .loginUser(
                               context: context,
                               userModels: UserModels(
-                                  FriendsList: [],
-                                  Name: "",
-                                  Email: controller.EmailController.value.text,
-                                  Password:
-                                      controller.PassController.value.text,
-                                  uid: ""))
+                                FriendsList: [],
+                                Name: "",
+                                Email: controller.EmailController.value.text,
+                                Password: controller.PassController.value.text,
+                                uid: "",
+                              ))
                           .then((value) {
                         if (!isNullEmptyOrFalse(value)) {
                           Get.offAllNamed(Routes.HOME);
+                          box.write(ArgumentConstant.isLogin, true);
                         }
                       });
                     },
