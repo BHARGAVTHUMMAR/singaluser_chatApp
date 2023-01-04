@@ -1,11 +1,20 @@
 import 'package:get/get.dart';
+import 'package:singal_chat_app/Models/userModels.dart';
+import 'package:singal_chat_app/constants/api_constants.dart';
+import 'package:singal_chat_app/constants/sizeConstant.dart';
+import 'package:singal_chat_app/main.dart';
+import 'package:singal_chat_app/service/Firebase_service.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
+  UserModels? userData;
+  RxString username = "".obs;
   @override
-  void onInit() {
+  void onInit() async {
+    userData = await FirebaseService().getUserData(
+        uid: box.read(ArgumentConstant.userUid), context: Get.context!);
+    if (!isNullEmptyOrFalse(userData)) {
+      username.value = userData!.Name.toString();
+    }
     super.onInit();
   }
 
@@ -18,6 +27,4 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

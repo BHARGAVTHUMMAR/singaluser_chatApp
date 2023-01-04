@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:singal_chat_app/Models/userModels.dart';
 import 'package:singal_chat_app/app/modules/login_page/controllers/login_page_controller.dart';
 import 'package:singal_chat_app/app/routes/app_pages.dart';
 import 'package:singal_chat_app/constants/color_constant.dart';
 import 'package:singal_chat_app/constants/sizeConstant.dart';
 import 'package:singal_chat_app/constants/text_field.dart';
+import 'package:singal_chat_app/service/Firebase_service.dart';
 
 class LoginPageView extends GetView<LoginPageController> {
   const LoginPageView({Key? key}) : super(key: key);
@@ -72,10 +74,21 @@ class LoginPageView extends GetView<LoginPageController> {
                   ),
                   Space.height(50),
                   GestureDetector(
-                    onTap: () {
-                      controller.LogIn(
-                          Email: controller.EmailController.value.text,
-                          Password: controller.PassController.value.text);
+                    onTap: () async {
+                      await FirebaseService()
+                          .loginUser(
+                              context: context,
+                              userModels: UserModels(
+                                  Name: "",
+                                  Email: controller.EmailController.value.text,
+                                  Password:
+                                      controller.PassController.value.text,
+                                  uid: ""))
+                          .then((value) {
+                        if (!isNullEmptyOrFalse(value)) {
+                          Get.offAllNamed(Routes.HOME);
+                        }
+                      });
                     },
                     child: Container(
                       height: 50,

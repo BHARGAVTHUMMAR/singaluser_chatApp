@@ -12,19 +12,6 @@ class LoginPageController extends GetxController {
     super.onInit();
   }
 
-  void LogIn({required String Email, required String Password}) async {
-    UserCredential? userCredential;
-    try {
-      userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: Email, password: Password)
-          .then((value) {
-        Get.toNamed(Routes.HOME);
-      });
-    } on FirebaseAuthException catch (ex) {
-      print(ex.code.toString());
-    }
-  }
-
   @override
   void onReady() {
     super.onReady();

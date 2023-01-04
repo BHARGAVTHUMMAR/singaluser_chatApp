@@ -11,31 +11,6 @@ class SingupPageController extends GetxController {
   Rx<TextEditingController> ConformPassController = TextEditingController().obs;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  void SingUp({required String Email, required String Password}) async {
-    UserCredential? userCredential;
-    try {
-      userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: Email, password: Password)
-          .then((value) => addUserData(value));
-    } on FirebaseAuthException catch (ex) {
-      print(ex.code.toString());
-    }
-  }
-
-  addUserData(UserCredential user) {
-    String uid = user.user!.uid;
-    UserModels userModels = UserModels(
-      Name: NameController.value.text.trim(),
-      Email: EmailController.value.text.trim(),
-      uid: uid,
-      Password: PassController.value.text.trim(),
-    );
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(uid)
-        .set(userModels.toMap());
-  }
-
   @override
   void onInit() {
     super.onInit();

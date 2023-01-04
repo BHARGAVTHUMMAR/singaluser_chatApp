@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:singal_chat_app/Models/userModels.dart';
 import 'package:singal_chat_app/app/routes/app_pages.dart';
 import 'package:singal_chat_app/constants/color_constant.dart';
 import 'package:singal_chat_app/constants/sizeConstant.dart';
 import 'package:singal_chat_app/constants/text_field.dart';
+import 'package:singal_chat_app/service/Firebase_service.dart';
 
 import '../controllers/singup_page_controller.dart';
 
@@ -105,10 +107,24 @@ class SingupPageView extends GetWidget<SingupPageController> {
                             controller.ConformPassController.value),
                     Space.height(50),
                     GestureDetector(
-                      onTap: () {
-                        controller.SingUp(
-                            Email: controller.EmailController.value.text,
-                            Password: controller.PassController.value.text);
+                      onTap: () async {
+                        await FirebaseService()
+                            .SingUpUser(
+                                context: context,
+                                userModels: UserModels(
+                                    Name: controller.NameController.value.text
+                                        .trim(),
+                                    Password: controller
+                                        .PassController.value.text
+                                        .trim(),
+                                    uid: "",
+                                    Email: controller.EmailController.value.text
+                                        .trim()))
+                            .then((value) {
+                          if (!isNullEmptyOrFalse(value)) {
+                            Get.offAllNamed(Routes.HOME);
+                          }
+                        });
                       },
                       child: Container(
                         height: 50,
